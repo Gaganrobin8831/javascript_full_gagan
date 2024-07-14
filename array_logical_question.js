@@ -1,32 +1,23 @@
-const myArr = [0,1,2,1,1,1,2,3,4,3,5]
-let count=0;
-let temp = new Array;
+const myArr = [0, 1, 2, 1, 1, 1, 2, 3, 4, 3,3, 5];
+let countMap = {};
 
-for (let index = 0; index < myArr.length; index++) {
-    
-    //console.log(myArr[index]);
-   temp = myArr[index]
-// console.log(`this is temp value ${temp}`);
+// First, count the occurrences of each element in the array
+for (let i = 0; i < myArr.length; i++) {
+    let temp = myArr[i];
+    if (countMap[temp] !== undefined) {
+        countMap[temp]++;
+        console.log(countMap[temp]);
+    } else {
+        countMap[temp] = 1;
+        // console.log("1");
+    }
+}
 
-   for (let k = 0; k < myArr.length; k++) {
-       if (temp == myArr[k]) {
-         
-            count++;
-             
-          
-            
-      }
-      
-     }
 
-  
-     console.log(`the value is ${temp} as time ${count} array of ${index}`);
-   
-   
-       
-        
-     
-   
-count=0;
-    
+console.log(countMap);
+// Then, print out the elements that appear more than once
+for (let key in countMap) {
+    if (countMap[key] > 1) {
+        console.log(`The value ${key} appears ${countMap[key]} times.`);
+    }
 }
