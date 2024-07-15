@@ -9,7 +9,7 @@ for (let i = 0; i < myArr.length; i++) {
         console.log(countMap[temp]);
     } else {
         countMap[temp] = 1;
-        // console.log("1");
+        console.log("1");
     }
 }
 
