@@ -55,9 +55,42 @@ const users = [
     }
 ]
 
-users[1].email
-console.log(Object.keys(tinderUser));
-console.log(Object.values(tinderUser));
-console.log(Object.entries(tinderUser));
+// users[1].email
+// console.log(Object.keys(tinderUser));
+// console.log(Object.values(tinderUser));
+// console.log(Object.entries(tinderUser));
 
-console.log(tinderUser.hasOwnProperty('isLogged'));
+// console.log(tinderUser.hasOwnProperty('isLogged'));
+
+
+
+// ============================json========================
+
+const course = {
+    coursename:"js is hindi",
+    price:"999",
+    courseInstructor :"Gagan"
+}
+
+// course.courseInstructor
+
+
+const {courseInstructor:sir} = course
+// console.log(courseInstructor);
+// console.log(sir);
+
+// //react
+// const nav = ({company}) => {
+
+// }
+
+// nav(company ="Gagan")
+
+//json
+// {
+// "name":"Gagan",
+// "coursename":"js is hindi",
+// "price":"999"
+
+// }
+
