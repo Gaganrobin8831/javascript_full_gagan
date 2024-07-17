@@ -41,10 +41,38 @@ function loginUserMessage (username = "Singh"){
 // console.log(loginUserMessage("Gagan"))
 // console.log(loginUserMessage())
 
+// ... here is rest otherwise spread
+
+function calccartprice(va1, val2,...num1){
+  return num1
+}
+
+// console.log(calccartprice(200,300,500,2000));
+
+const user = {
+  username:"Gagan",
+  prices:199
+}
+
+function handleObject(anyObject){
+
+  console.log(`username is ${anyObject.username} and price is ${anyObject.price}`);
+
+}
+
+// handleObject(user)
+// handleObject({
+//   username:"robin",
+//   price:399
+// })
+
+const myNewArray =[200,400,100,6000]
 
 
+function handleArray(getArray){
+  return getArray[2]
+}
 
+// console.log(handleArray(myNewArray));
 
-
-
-
+console.log(handleArray([100,200,3000,4000]));
