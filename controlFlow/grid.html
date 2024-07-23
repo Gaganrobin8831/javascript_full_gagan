@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .boxes {
+            height: 100vh;
+            background-color: blue;
+            display: grid;
+            gap: 2vw;
+            grid-template-columns: 1fr; /* Default: Single column layout for smaller screens */
+            grid-template-rows: repeat(auto-fill, minmax(60vh, 1fr)); /* Fill the space with a minimum height */
+        }
+
+        .box {
+            background-color: aqua;
+            height: 60vh; /* Default height for smaller screens */
+            width: 100%; /* Full width for each box in smaller screens */
+        }
+
+        /* Media query for larger screens */
+        @media (min-width: 768px) {
+            .boxes {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Responsive column layout */
+                grid-template-rows: 1fr; /* Single row layout */
+            }
+
+            .box {
+                height: auto; /* Allow the height to adjust automatically */
+                width: auto;  /* Adjust width to fit grid cells */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="boxes">
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+</body>
+</html>
