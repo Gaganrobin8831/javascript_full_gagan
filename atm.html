@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .note-info {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            background-color: #f9f9f9;
+        }
+
+        .note-info h3 {
+            margin: 5px 0;
+            padding: 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .note-info h3 span {
+            color: #007bff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <input type="text" id="inp" placeholder="Enter amount">
+    <button class="btn">Submit</button>
+
+    <div class="note-info">
+        <h3 class="total">Remaining Total Amount: <span id="remainingTotal">4000</span></h3>
+        <h3 class="remaining-five">Remaining 500 Notes: <span id="fiveRemaining">5</span></h3>
+        <h3 class="remaining-two">Remaining 200 Notes: <span id="twoRemaining">5</span></h3>
+        <h3 class="remaining-one">Remaining 100 Notes: <span id="oneRemaining">5</span></h3>
+    </div>
+    
+</body>
+<script>
+    // Denominations of the currency
+    let hundred = 100;
+    let twoHundred = 200;
+    let fiveHundred = 500;
+
+    // Initial count of notes available
+    let one = 5;  // 5 notes of 100
+    let two = 5;  // 5 notes of 200
+    let five = 5; // 5 notes of 500
+
+    // Calculate total available amount initially
+    let totalAvailable = (hundred * one) + (twoHundred * two) + (fiveHundred * five);
+    document.getElementById("remainingTotal").textContent = totalAvailable;
+
+    // Function to update the remaining note counts in the HTML
+    function updateNoteCounts() {
+        document.getElementById("fiveRemaining").textContent = five;
+        document.getElementById("twoRemaining").textContent = two;
+        document.getElementById("oneRemaining").textContent = one;
+        document.getElementById("remainingTotal").textContent = (hundred * one) + (twoHundred * two) + (fiveHundred * five);
+    }
+
+    // Event listener for button click
+    document.querySelector(".btn").addEventListener("click", () => {
+        const myInput = parseInt(document.getElementById("inp").value); // Get user input
+        console.log("Input Amount:", myInput);
+
+        if (isNaN(myInput) || myInput <= 0) {
+            alert("Please enter a valid positive amount."); // Validate input
+            return;
+        }
+
+        // Recalculate total available for current notes
+        totalAvailable = (hundred * one) + (twoHundred * two) + (fiveHundred * five);
+        console.log("Total Available:", totalAvailable);
+
+        if (myInput > totalAvailable) {
+            alert(`Please enter an amount under ${totalAvailable}`); // Check if input is greater than available
+        } else {
+            let remaining = myInput; // Remaining amount to be dispensed
+
+            // Calculate number of 500 notes needed
+            let fiveCount = Math.floor(remaining / fiveHundred);
+            if (fiveCount > five) fiveCount = five; // Ensure we don't use more notes than available
+            remaining -= fiveCount * fiveHundred;
+
+            // Calculate number of 200 notes needed
+            let twoCount = Math.floor(remaining / twoHundred);
+            if (twoCount > two) twoCount = two;
+            remaining -= twoCount * twoHundred;
+
+            // Calculate number of 100 notes needed
+            let oneCount = Math.floor(remaining / hundred);
+            if (oneCount > one) oneCount = one;
+            remaining -= oneCount * hundred;
+
+            // Update the remaining notes
+            one -= oneCount;
+            two -= twoCount;
+            five -= fiveCount;
+
+            // Log the counts of used notes
+            console.log("500 notes used:", fiveCount);
+            console.log("200 notes used:", twoCount);
+            console.log("100 notes used:", oneCount);
+            console.log("Remaining Amount after dispensing:", remaining);
+
+            // Log the remaining notes count
+            console.log("Remaining 100 notes:", one);
+            console.log("Remaining 200 notes:", two);
+            console.log("Remaining 500 notes:", five);
+
+            // Update HTML with remaining notes and total amount
+            updateNoteCounts();
+        }
+    });
+
+</script>
+</html>
