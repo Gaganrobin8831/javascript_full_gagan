@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Simulation</title>
+    <style>
+        .box {
+            height: 100vh;
+            width: 100vw;
+            /* Corrected width to be 100vw instead of 100 */
+            background-color: #313131;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .inputbox {
+            border-radius: 20px;
+            height: 50vh;
+            width: 70%;
+            background-color: #342143;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-evenly;
+            color: white;
+        }
+
+        .btn {
+            background-color: rgb(240, 90, 90);
+            height: 5vh;
+            width: 30%;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: white;
+        }
+
+        h1 {
+            text-shadow: 2px 2px gray;
+        }
+
+        .inp {
+            height: 5vh;
+            width: 30%;
+        }
+
+        .inp:hover {
+            border: 2px solid black;
+        }
+
+        .col1 {
+            height: 50vh;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .col2 {
+            height: 50vh;
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="inputbox">
+            <div class="col1">
+                <h1>Enter the Amount</h1>
+                <input type="text" id="inp" class="inp">
+                <button class="btn" onclick="tO()">Submit</button>
+                <h3 class="totalamount"></h3>
+            </div>
+            <div class="col2">
+                <h3 class="total">Remaining Total Amount: <span id="remainingTotal">4000</span></h3>
+                <h3 class="remaining-five">Remaining 500 Notes: <span id="fiveRemaining">5</span></h3>
+                <h3 class="remaining-two">Remaining 200 Notes: <span id="twoRemaining">5</span></h3>
+                <h3 class="remaining-one">Remaining 100 Notes: <span id="oneRemaining">5</span></h3>
+            </div>
+        </div>
+    </div>
+    <script>
+        let hundred = 100;
+        let twoHundred = 200;
+        let fiveHundred = 500;
+
+        let one = 5;
+        let two = 5;
+        let five = 5;
+
+        let totalAvailable = (hundred * one) + (twoHundred * two) + (fiveHundred * five);
+        document.getElementById("remainingTotal").textContent = totalAvailable;
+
+
+        function updateNoteCounts() {
+            document.getElementById("fiveRemaining").textContent = five;
+            document.getElementById("twoRemaining").textContent = two;
+            document.getElementById("oneRemaining").textContent = one;
+            document.getElementById("remainingTotal").textContent = (hundred * one) + (twoHundred * two) + (fiveHundred * five);
+        }
+        document.querySelector(".btn").addEventListener("click", () => {
+            const myInput = parseInt(document.getElementById("inp").value);
+            console.log("Input Amount:", myInput);
+
+         const checkInput = myInput % 100 == 0
+
+         if (checkInput == false) {
+            alert(`please Enter number like 100 , 200, 300 , 500 etc`)
+         }else {
+
+            if (isNaN(myInput) || myInput <= 0) {
+                alert("Please enter a valid positive amount.");
+                return;
+            }
+            totalAvailable = (hundred * one) + (twoHundred * two) + (fiveHundred * five);
+            console.log("Total Available:", totalAvailable);
+
+            if (myInput > totalAvailable) {
+                alert(`Please enter an amount under ${totalAvailable}`);
+            } else {
+                let remaining = myInput;
+                let fiveCount = Math.floor(remaining / fiveHundred);
+                if (fiveCount > five) fiveCount = five;
+                remaining -= fiveCount * fiveHundred;
+
+
+                let twoCount = Math.floor(remaining / twoHundred);
+                if (twoCount > two) twoCount = two;
+                remaining -= twoCount * twoHundred;
+
+
+
+                let oneCount = Math.floor(remaining / hundred);
+                if (oneCount > one) oneCount = one;
+                remaining -= oneCount * hundred;
+
+
+                one -= oneCount;
+                two -= twoCount;
+                five -= fiveCount;
+
+                updateNoteCounts();
+            }
+        }
+        });
+    
+    </script>
+</body>
+
+</html>
