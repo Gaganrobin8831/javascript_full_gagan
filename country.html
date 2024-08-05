@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country and State Manager</title>
+    <style>
+        .state {
+            margin-left: 5rem;
+        }
+        .state-button {
+            margin-left: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="add">Add Country</button>
+    <button class="remove">Remove Country</button>
+    <div class="container">
+        <ul class="Countryul"></ul>
+    </div>
+
+    <script>
+        let obj = [];
+
+        document.querySelector('.add').addEventListener("click", () => {
+            let val = prompt("Add the country");
+            if (!val) return; // Handle cancel or empty input
+
+            // Create country list item
+            let ulone = document.querySelector('.Countryul');
+            let lione = document.createElement('li');
+            lione.className = "country";
+            lione.innerText = val;
+            lione.style.padding = "2px";
+            ulone.appendChild(lione);
+
+            // Create Add State button
+            let btn1 = document.createElement('button');
+            btn1.className = "addState";
+            btn1.innerText = "Add State";
+            btn1.style.marginLeft = "3px";
+            lione.appendChild(btn1);
+
+            // Add country to the object array
+            obj.push({ country: { name: val, state: [] } });
+
+            // Add State button click event
+            btn1.addEventListener('click', () => {
+                let stateval = prompt("Add the state");
+                if (!stateval) return; // Handle cancel or empty input
+
+                // Create state list item
+                let stateli = document.createElement('li');
+                stateli.className = "state";
+                stateli.innerText = stateval;
+                lione.appendChild(stateli);
+
+                // Find the country object and add the state
+                let countryIndex = Array.from(ulone.children).indexOf(lione);
+                console.log(countryIndex);
+                
+                obj[countryIndex].country.state.push({ statename: stateval });
+
+                console.log(obj);
+            });
+
+            console.log(obj);
+        });
+
+        document.querySelector('.remove').addEventListener("click", () => {
+            let ulone = document.querySelector('.Countryul');
+            if (ulone.children.length === 0) {
+                alert("No countries to remove!");
+                return;
+            }
+
+            let val = prompt("Enter the name of the country to remove");
+            if (!val) return; // Handle cancel or empty input
+
+            // Find the country list item to remove
+            let countryIndex = obj.findIndex(c => c.country.name === val);
+            if (countryIndex !== -1) {
+                ulone.removeChild(ulone.children[countryIndex]);
+                obj.splice(countryIndex, 1); // Remove from the object array
+                console.log(obj);
+            } else {
+                alert("Country not found!");
+            }
+        });
+    </script>
+
+</body>
+
+</html>
