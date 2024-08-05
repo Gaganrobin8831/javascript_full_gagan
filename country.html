@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <button class="add">add</button>
+    <button class="remove">remove</button>
+    <div class="container">
+  <ul class="Countryul">
+
+  </ul>
+    </div>
+
+</body>
+<script>
+    let obj = []
+
+   
+    document.querySelector('.add').addEventListener("click", () => {
+        let val = prompt("add the country")
+        let ulone = document.querySelector('.Countryul')
+
+      
+
+        let lione = document.createElement('li')
+        let name = lione.className = "country"
+        lione.innerText = val
+       lione.style.padding = "2px"
+        ulone.appendChild(lione)
+
+        let btn1 = document.createElement('button')
+        btn1.className = "addState"
+        btn1.innerText = "Add State"
+        btn1.style.marginLeft = "3px"
+
+        lione.appendChild(btn1)
+
+        let addObject = obj.push({["country"]:{ name: val.split('\n')[0] }})
+
+        let parent = btn1.parentElement.innerText
+        console.log(parent);
+        
+        
+            document.querySelector(".addState").addEventListener('click',() => {
+            let   stateval =   prompt("add the state")
+             let stateli = document.createElement('li')
+            let stateclass =  stateli.className = "state"
+             stateli.innerText = stateval
+             stateli.style.marginLeft = "5rem"
+             lione.appendChild(stateli)
+             let sendval = {obj.country.stateclass:stateli.innerText}
+             console.log(obj);             
+            })
+        
+        console.log(obj);
+
+    })
+</script>
+
+</html>
