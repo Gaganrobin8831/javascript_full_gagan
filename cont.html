@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .showstate {
+        border: 2px solid;
+        height: auto;
+        width: 30%;
+        margin-left: 5rem;
+        display: none;
+
+    }
+
+    .one:hover .showstate {
+        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .city{ 
+             border: 2px solid;
+        height: auto;
+        width: 30%;
+        margin-left: 15rem;
+        display: none;
+
+    }
+    .showstate:hover .city {
+        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+</style>
+
+<body>
+    <ul>
+        <li class="one">India
+            <ul class="showstate">
+                <button class="btn">Add</button>
+                <button class="btnremove">Rmove</button>
+                <li class="stateIndia">punjab
+                    <ul> <li class="city">Amritsar</li></ul>
+                </li>
+
+            </ul>
+
+        </li>
+        <li class="one">Usa
+            <ul class="showstate">
+                <button class="btn">Add</button>
+                <button class="btnremove">Rmove</button>
+                <li class="stateIndia">calfornia
+                   <ul> <li class="city">newyork</li></ul>
+                </li>
+
+            </ul>
+
+        </li>
+        <li class="one">Canada
+            <ul class="showstate">
+                <button class="btn">Add</button>
+                <button class="btnremove">Rmove</button>
+                <li class="stateIndia">troonto
+                    <ul> <li class="city">melborne</li></ul>
+                </li>
+
+            </ul>
+        </li>
+        <li class="one">Pakistan
+            <ul class="showstate">
+                <button class="btn">Add</button>
+                <button class="btnremove">Rmove</button>
+                <li class="stateIndia">lahore
+                    <ul> <li class="city">Amritsar</li></ul>
+                </li>
+
+            </ul>
+        </li>
+    </ul>
+
+</body>
+<script>
+    let obj = []
+
+
+
+    function update() {
+        obj = [];
+        document.querySelectorAll('.one').forEach((countryElem) => {
+            const countryName = countryElem.innerText.split('\n')[0];
+            const states = Array.from(countryElem.querySelectorAll('.stateIndia')).map(stateElem => stateElem.innerText);
+         
+            obj.push({ countryName, states });
+            console.log(obj);
+
+        });
+    }
+
+
+
+    document.querySelectorAll(".btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const countryElem = btn.closest('.one');
+        const countryName = countryElem.innerText.split('\n')[0];
+        const stateList = countryElem.querySelector('.showstate');
+        const value = prompt("Enter the name of state");
+
+        if (value) {
+            const li = document.createElement('li');
+            li.className = 'stateIndia';
+            li.innerText = value;
+            let cl = li.className
+            let ln = li.innerText
+          stateList.appendChild(li);
+
+            update(); 
+        }
+    });
+});
+
+document.querySelectorAll(".btnremove").forEach((btn) => {
+    btn.addEventListener("click", () => {
+        const countryElem = btn.closest('.one'); 
+        const countryName = countryElem.innerText.split('\n')[0]; 
+        const stateList = countryElem.querySelector('.showstate');
+
+        const stateToRemove = prompt("Enter the name of state to remove");
+
+        if (stateToRemove) {
+            const stateElems = stateList.querySelectorAll('.stateIndia');
+            stateElems.forEach((stateElem) => {
+                if (stateElem.innerText === stateToRemove) {
+                    stateElem.remove();
+                    update(); 
+                }
+            });
+        }
+    });
+});
+
+
+update();
+
+</script>
+
+</html>
