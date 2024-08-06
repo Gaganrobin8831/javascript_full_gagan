@@ -4,63 +4,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Country and State Manager</title>
+    <style>
+        .state {
+            margin-left: 5rem;
+        }
+
+        .city {
+            margin-left: 2rem;
+        }
+
+        .state-button {
+            margin-left: 1rem;
+        }
+    </style>
 </head>
 
 <body>
 
-    <button class="add">add</button>
-    <button class="remove">remove</button>
+    <button class="add">Add Country</button>
+    <button class="remove">Remove Country</button>
     <div class="container">
-  <ul class="Countryul">
-
-  </ul>
+        <ul class="Countryul"></ul>
     </div>
 
+    <script>
+        let obj = [];
+
+        document.querySelector('.add').addEventListener("click", () => {
+            let countryName = prompt("Add the country");
+            if (!countryName) return;
+
+            let ulone = document.querySelector('.Countryul');
+            let lione = document.createElement('li');
+            lione.className = "country";
+            lione.dataset.index = obj.length;
+            lione.innerText = countryName;
+            lione.style.padding = "2px";
+            ulone.appendChild(lione);
+
+            let btn1 = document.createElement('button');
+            btn1.className = "addState";
+            btn1.innerText = "Add State";
+            btn1.style.marginLeft = "3px";
+            lione.appendChild(btn1);
+
+            let remState = document.createElement('button');
+            remState.className = "remstate";
+            remState.innerText = "Remove State";
+            remState.style.marginLeft = "3px";
+            lione.appendChild(remState);
+
+            obj.push({ country: { name: countryName, state: [] } });
+
+            btn1.addEventListener('click', () => {
+                let stateName = prompt("Add the state");
+                if (!stateName) return;
+
+                let stateli = document.createElement('li');
+                stateli.className = "state";
+                stateli.dataset.index = obj[lione.dataset.index].country.state.length;
+                stateli.innerText = stateName;
+                lione.appendChild(stateli);
+
+                let btn2 = document.createElement('button');
+                btn2.className = "addCity";
+                btn2.innerText = "Add City";
+                btn2.style.marginLeft = "3px";
+                stateli.appendChild(btn2);
+
+                let rembtn2 = document.createElement('button');
+                rembtn2.className = "remCity";
+                rembtn2.innerText = "Remove City";
+                rembtn2.style.marginLeft = "3px";
+                stateli.appendChild(rembtn2);
+
+                obj[lione.dataset.index].country.state.push({ statename: stateName, city: [] });
+
+                btn2.addEventListener('click', () => {
+                    let cityName = prompt("Add the city");
+                    if (!cityName) return;
+
+                    let cityli = document.createElement('li');
+                    cityli.className = "city";
+                    cityli.dataset.index = obj[lione.dataset.index].country.state[stateli.dataset.index].city.length;
+                    cityli.innerText = cityName;
+                    stateli.appendChild(cityli);
+
+                    obj[lione.dataset.index].country.state[stateli.dataset.index].city.push(cityName);
+                    console.log(obj);
+                });
+
+                rembtn2.addEventListener('click', () => {
+                    let cityName = prompt("Enter the name of the city to remove");
+                    if (!cityName) return;
+
+                    let stateIndex = stateli.dataset.index;
+                    let cityIndex = obj[lione.dataset.index].country.state[stateIndex].city.indexOf(cityName);
+
+                    if (cityIndex !== -1) {
+                        obj[lione.dataset.index].country.state[stateIndex].city.splice(cityIndex, 1);
+                        console.log(obj);
+
+                        let cityElements = stateli.querySelectorAll('.city');
+                        cityElements[cityIndex].remove();
+                    } else {
+                        alert("City not found!");
+                    }
+                });
+                console.log(obj);
+            });
+
+            remState.addEventListener("click", () => {
+                let stateName = prompt("Enter the name of the state to remove");
+                if (!stateName) return;
+
+                let countryIndex = lione.dataset.index;
+                let stateIndex = obj[countryIndex].country.state.findIndex(s => s.statename === stateName);
+
+                if (stateIndex !== -1) {
+                    obj[countryIndex].country.state.splice(stateIndex, 1);
+                    console.log(obj);
+
+                    let stateElements = lione.querySelectorAll('.state');
+                    stateElements[stateIndex].remove();
+                } else {
+                    alert("State not found!");
+                }
+            });
+        });
+
+        document.querySelector('.remove').addEventListener("click", () => {
+            let ulone = document.querySelector('.Countryul');
+            if (ulone.children.length === 0) {
+                alert("No countries to remove!");
+                return;
+            }
+
+            let countryName = prompt("Enter the name of the country to remove");
+            if (!countryName) return;
+
+            let countryIndex = obj.findIndex(c => c.country.name === countryName);
+
+            if (countryIndex !== -1) {
+                ulone.children[countryIndex].remove();
+                obj.splice(countryIndex, 1);
+                console.log(obj);
+            } else {
+                alert("Country not found!");
+            }
+        });
+    </script>
+
 </body>
-<script>
-    let obj = []
-
-   
-    document.querySelector('.add').addEventListener("click", () => {
-        let val = prompt("add the country")
-        let ulone = document.querySelector('.Countryul')
-
-      
-
-        let lione = document.createElement('li')
-        let name = lione.className = "country"
-        lione.innerText = val
-       lione.style.padding = "2px"
-        ulone.appendChild(lione)
-
-        let btn1 = document.createElement('button')
-        btn1.className = "addState"
-        btn1.innerText = "Add State"
-        btn1.style.marginLeft = "3px"
-
-        lione.appendChild(btn1)
-
-        let addObject = obj.push({["country"]:{ name: val.split('\n')[0] }})
-
-        let parent = btn1.parentElement.innerText
-        console.log(parent);
-        
-        
-            document.querySelector(".addState").addEventListener('click',() => {
-            let   stateval =   prompt("add the state")
-             let stateli = document.createElement('li')
-            let stateclass =  stateli.className = "state"
-             stateli.innerText = stateval
-             stateli.style.marginLeft = "5rem"
-             lione.appendChild(stateli)
-             let sendval = {obj.country.stateclass:stateli.innerText}
-             console.log(obj);             
-            })
-        
-        console.log(obj);
-
-    })
-</script>
 
 </html>
