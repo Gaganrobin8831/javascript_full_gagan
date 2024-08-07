@@ -5,135 +5,151 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        .container {
-            height: 100vh;
-            width: 100%;
-            background: rgb(238, 174, 202);
-            background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 233, 178, 1) 100%);
-            position: relative;
-            color: white;
-        }
-
-        .inputbox {
-            position: absolute;
-            top: 20%;
-            left: 30%;
-            height: 60vh;
-            width: 40%;
-            border: 3px solid gray;
-            border-radius: 40px;
-            box-shadow: 10px 0px 10px 0px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-evenly;
-        }
-
-        input {
-            height: 3vh;
-            width: 50%;
-            border-radius: 30px;
-            box-shadow: 5px 0px 8px 0px gray;
-            text-transform: uppercase;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="inputbox">
-            <h1>Enter the Id</h1>
-            <input type="text">
-            <button class="btn">Enter</button>
-            <h2></h2>
+    <!DOCTYPE html>
+    <html lang="en">
 
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            .container {
+                height: 100vh;
+                width: 100%;
+                background: rgb(238, 174, 202);
+                background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 233, 178, 1) 100%);
+                position: relative;
+                color: white;
+            }
+
+            .inputbox {
+                position: absolute;
+                top: 20%;
+                left: 30%;
+                height: 60vh;
+                width: 40%;
+                border: 3px solid gray;
+                border-radius: 40px;
+                box-shadow: 10px 0px 10px 0px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+
+            input {
+                height: 3vh;
+                width: 50%;
+                border-radius: 30px;
+                box-shadow: 5px 0px 8px 0px gray;
+                text-transform: uppercase;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="inputbox">
+                <h1>Enter the Id</h1>
+                <input type="text">
+                <button class="btn">Enter</button>
+                <h2></h2>
+
+            </div>
         </div>
-    </div>
 
-</body>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script>
+    </body>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
 
-    document.querySelector('.btn').addEventListener('click', function () {
-        let val = document.querySelector("input").value
-
-
-        let myString = (val.replace(/[0-9]/g, '')).toUpperCase()
-        let myNumber = Number(val.replace(/\D/g, ""))
-        // console.log(typeof myNumber);
-        console.log(myString);
+        document.querySelector('.btn').addEventListener('click', function () {
+            let val = document.querySelector("input").value
 
 
-
-
-
-
-        if (myNumber > 999) {
-
-            swal({
-                title: "please Enter the id last value under or equl to 999",
-                icon: "error"
-            })
-            document.querySelector("input").value = ''
-        } else {
-
-
+            let myString = (val.replace(/[0-9]/g, '')).toUpperCase()
+            let myNumber = Number(val.replace(/\D/g, ""))
+            console.log(myNumber);
+            // console.log(myString);
             let myStringcheck = myString.lastIndexOf("Z")
+            console.log(myStringcheck);
+
             let replaceWord = myString.split('')
 
-            let getIndex = replaceWord.lastIndexOf("Z")
-            console.log(getIndex);
+            let getIndex = replaceWord.length - 1
+            // console.log(typeof getIndex);
 
             replaceWord[getIndex] = "A"
-            console.log(replaceWord);
             replaceWord = replaceWord.join('')
-            console.log(replaceWord);
 
+            if (myNumber > 999) {
 
-            if (myString.length < 2 && myNumber == 999) {
-                function getNextChar(char) {
-                    return String.fromCharCode(char.charCodeAt(0) + 1);
+                swal({
+                    title: "please Enter the id last value under or equl to 999",
+                    icon: "error"
+                })
+                document.querySelector("h2").value = ' '
+            } else if (myString.length > 1 || myString.length == 2) {
+
+                if (myStringcheck == 1 && myNumber == 999) {
+
+                    let replaceWord = myString.split('')
+                    console.log(replaceWord);
+                    let getIndex = replaceWord.length -1
+                    // console.log(getIndex);
+
+                    replaceWord[0] = "B"
+                    replaceWord[getIndex] = "A"
+                    replaceWord = replaceWord.join('')
+                    console.log(replaceWord);
+                    myNumber = 1
+                    let result1 = replaceWord.concat(myNumber)
+                  document.querySelector("h2").innerText = `your next id is ${result1}`
+
+                 
                 }
-
-                let nextString = getNextChar(myString)
-                myString=nextString
-                myNumber = 1
-               let nresult = myString.concat(myNumber)
-                document.querySelector("h2").innerText = `your next id is ${nresult}`
-
-            }else{
-
-
-
-            if (myNumber == 999 && myString.length >= 1) {
-                myNumber = 1
-
-
-                if (myString.length >= 1 && myStringcheck) {
-                    let newString = replaceWord
-                    // console.log(newString);
-                    myNumber.toString()
-                    let result = newString.concat(myNumber)
-                    document.querySelector("h2").innerText = `your next id is ${result}`
-                }
-
 
             } else {
-                myNumber += 1
-                let result2 = myString.concat(myNumber)
-                document.querySelector("h2").innerText = `your next id is ${result2}`
+                if (myString.length < 2 && myNumber == 999) {
+                    if (myString == "Z") {
+
+                        myString = replaceWord
+                        let nextStep = "A"
+                        let newString = myString.concat(nextStep)
+                        myNumber = 1
+                        let result = newString.concat(myNumber)
+                        document.querySelector("h2").innerText = `your next id is ${result}`
+
+                    } else {
+                        function getNextChar(char) {
+                            return String.fromCharCode(char.charCodeAt(0) + 1);
+                        }
+                        console.log("Hello2");
+                        let nextString = getNextChar(myString)
+                        myString = nextString
+                        myNumber = 1
+                        let nresult = myString.concat(myNumber)
+
+
+                        document.querySelector("h2").innerText = `your next id is ${nresult}`
+
+
+                    }
+                }
+                else {
+                    myNumber += 1
+                    let nresult = myString.concat(myNumber)
+                    document.querySelector("h2").innerText = `your next id is ${nresult}`
+                }
+
+
+
+
 
             }
-        }
-    }
+        })
+    </script>
 
-    })
-</script>
-
-</html>
-
-<!-- 
-var str = "Rs. 6,67,000";
-var res = str.replace(/\D/g, "");
-alert(res); // 667000 -->
+    </html>
