@@ -19,8 +19,8 @@
             .container {
                 height: 100vh;
                 width: 100%;
-                background: rgb(238, 174, 202);
-                background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 233, 178, 1) 100%);
+                background: rgb(166, 187, 233);
+                background: radial-gradient(circle, rgb(154, 231, 184) 0%, rgba(148, 233, 178, 1) 100%);
                 position: relative;
                 color: white;
             }
@@ -71,10 +71,10 @@
 
             let myString = (val.replace(/[0-9]/g, '')).toUpperCase()
             let myNumber = Number(val.replace(/\D/g, ""))
-            console.log(myNumber);
+            // console.log(myNumber);
             // console.log(myString);
             let myStringcheck = myString.lastIndexOf("Z")
-            console.log(myStringcheck);
+            // console.log(myStringcheck);
 
             let replaceWord = myString.split('')
 
@@ -84,6 +84,9 @@
             replaceWord[getIndex] = "A"
             replaceWord = replaceWord.join('')
 
+            // console.log("This Slice", myString.slice(1, -1));
+
+
             if (myNumber > 999) {
 
                 swal({
@@ -91,63 +94,98 @@
                     icon: "error"
                 })
                 document.querySelector("h2").value = ' '
-            } else if (myString.length > 1 || myString.length == 2) {
-
-                if (myStringcheck == 1 && myNumber == 999) {
-
-                    let replaceWord = myString.split('')
-                    console.log(replaceWord);
-                    let getIndex = replaceWord.length -1
-                    // console.log(getIndex);
-
-                    replaceWord[0] = "B"
-                    replaceWord[getIndex] = "A"
-                    replaceWord = replaceWord.join('')
-                    console.log(replaceWord);
-                    myNumber = 1
-                    let result1 = replaceWord.concat(myNumber)
-                  document.querySelector("h2").innerText = `your next id is ${result1}`
-
-                 
-                }
-
             } else {
-                if (myString.length < 2 && myNumber == 999) {
-                    if (myString == "Z") {
+                if (myString.length > 1 || myString.length == 2) {
+                    console.log("3numxgfdrfxb");
 
-                        myString = replaceWord
-                        let nextStep = "A"
-                        let newString = myString.concat(nextStep)
-                        myNumber = 1
-                        let result = newString.concat(myNumber)
+                    if (myString.slice(-1) == "Z" && myNumber == 999) {
+
+                        result = myString.slice(0, -1) + 'A';
+                        console.log(result);
                         document.querySelector("h2").innerText = `your next id is ${result}`
 
-                    } else {
-                        function getNextChar(char) {
-                            return String.fromCharCode(char.charCodeAt(0) + 1);
+                        if (myString.slice(0, -2) != "Z" && myNumber == 999) {
+                            function getNextChar(char) {
+                                return String.fromCharCode(char.charCodeAt(myString.length - 2) + 1);
+                            }
+                                console.log("Edit second");
+                                
+                            
+
+                            result = myString.slice(0, -2) + getNextChar(myString) + 'A';
+
+                           
+                            myNumber = 1
+                            let nresult = result.concat(myNumber)
+                            document.querySelector("h2").innerText = `your next id is ${nresult}`
+
+
                         }
-                        console.log("Hello2");
-                        let nextString = getNextChar(myString)
-                        myString = nextString
-                        myNumber = 1
+                    } else {
+                        myNumber += 1
                         let nresult = myString.concat(myNumber)
-
-
                         document.querySelector("h2").innerText = `your next id is ${nresult}`
-
-
                     }
+                    // } else {
+                    //     function getNextChar(char) {
+                    //         return String.fromCharCode(char.charCodeAt(myString.length - 1) + 1);
+                    //     }
+
+                    //     console.log(getNextChar(myString));
+
+
+                    //     result = myString.slice(0, -1) + getNextChar(myString);
+                    //     console.log("New Word", result);
+                    //     myNumber = 1
+                    //     let nresult = result.concat(myNumber)
+
+
+                    //     document.querySelector("h2").innerText = `your next id is ${nresult}`
+
+                    // }
+
+
+
+                } else {
+                    if (myString.length < 2 && myNumber == 999) {
+                        if (myString == "Z") {
+
+                            myString = replaceWord
+                            let nextStep = "A"
+                            let newString = myString.concat(nextStep)
+                            myNumber = 1
+                            let result = newString.concat(myNumber)
+                            document.querySelector("h2").innerText = `your next id is ${result}`
+
+                        } else {
+                            function getNextChar(char) {
+                                return String.fromCharCode(char.charCodeAt(0) + 1);
+                            }
+
+                            console.log("Hello2");
+                            let nextString = getNextChar(myString)
+                            console.log(nextString);
+                            myString = nextString
+                            myNumber = 1
+                            let nresult = myString.concat(myNumber)
+                            console.log(nresult);
+
+                            document.querySelector("h2").innerText = `your next id is ${nresult}`
+
+
+                        }
+                    }
+                    else {
+                        myNumber += 1
+                        let nresult = myString.concat(myNumber)
+                        document.querySelector("h2").innerText = `your next id is ${nresult}`
+                    }
+
+
+
+
+
                 }
-                else {
-                    myNumber += 1
-                    let nresult = myString.concat(myNumber)
-                    document.querySelector("h2").innerText = `your next id is ${nresult}`
-                }
-
-
-
-
-
             }
         })
     </script>
