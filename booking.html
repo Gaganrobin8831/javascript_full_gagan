@@ -127,9 +127,18 @@
         }
 
         function isTimeSlotAvailable(startTime, endTime) {
+            const startInMinutes = convertTo24HourFormat(startTime.hours, startTime.period) * 60 + startTime.minutes;
+            const endInMinutes = convertTo24HourFormat(endTime.hours, endTime.period) * 60 + endTime.minutes;
+
             for (const booking of bookings) {
-                if (startTime.hours === booking.startTime.hours && startTime.minutes === booking.startTime.minutes &&
-                    endTime.hours === booking.endTime.hours && endTime.minutes === booking.endTime.minutes) {
+                const bookedStartInMinutes = convertTo24HourFormat(booking.startTime.hours, booking.startTime.period) * 60 + booking.startTime.minutes;
+                const bookedEndInMinutes = convertTo24HourFormat(booking.endTime.hours, booking.endTime.period) * 60 + booking.endTime.minutes;
+
+                if (
+                    (startInMinutes < bookedEndInMinutes && endInMinutes > bookedStartInMinutes) || 
+                    (endInMinutes > bookedStartInMinutes && endInMinutes <= bookedEndInMinutes) || 
+                    (startInMinutes >= bookedStartInMinutes && endInMinutes <= bookedEndInMinutes)
+                ) {
                     return false;
                 }
             }
