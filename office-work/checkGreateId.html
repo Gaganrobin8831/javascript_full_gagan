@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            .container {
+                height: 100vh;
+                width: 100%;
+                background: rgb(166, 187, 233);
+                background: radial-gradient(circle, rgb(154, 231, 184) 0%, rgba(148, 233, 178, 1) 100%);
+                position: relative;
+                color: white;
+            }
+
+            .inputbox {
+                position: absolute;
+                top: 20%;
+                left: 30%;
+                height: 60vh;
+                width: 40%;
+                border: 3px solid gray;
+                border-radius: 40px;
+                box-shadow: 10px 0px 10px 0px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-evenly;
+            }
+
+            input {
+                height: 3vh;
+                width: 50%;
+                border-radius: 30px;
+                box-shadow: 5px 0px 8px 0px gray;
+                text-transform: uppercase;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="inputbox">
+                <h1>Enter the Id</h1>
+                <input type="text">
+                <button class="btn">Enter</button>
+                <h2></h2>
+
+            </div>
+        </div>
+
+    </body>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+
+        document.querySelector('.btn').addEventListener('click', function () {
+            let val = document.querySelector("input").value
+
+
+            let myString = (val.replace(/[0-9]/g, '')).toUpperCase()
+            let myNumber = Number(val.replace(/\D/g, ""))
+            // console.log(myNumber);
+            // console.log(myString);
+            let myStringcheck = myString.lastIndexOf("Z")
+            // console.log(myStringcheck);
+
+            let replaceWord = myString.split('')
+
+            let getIndex = replaceWord.length - 1
+            // console.log(typeof getIndex);
+
+            replaceWord[getIndex] = "A"
+            replaceWord = replaceWord.join('')
+
+            // console.log("This Slice", myString.slice(1, -1));
+
+
+            if (myNumber > 999) {
+
+                swal({
+                    title: "please Enter the id last value under or equl to 999",
+                    icon: "error"
+                })
+                document.querySelector("h2").value = ' '
+            } else {
+                if (myString.length > 1 || myString.length == 2) {
+                    console.log("3numxgfdrfxb");
+
+                    if (myString.slice(-1) == "Z" && myNumber == 999) {
+
+                        result = myString.slice(0, -1) + 'A';
+                        console.log(result);
+                        document.querySelector("h2").innerText = `your next id is ${result}`
+
+                        if (myString.slice(0, -2) != "Z" && myNumber == 999) {
+                            function getNextChar(char) {
+                                return String.fromCharCode(char.charCodeAt(myString.length - 2) + 1);
+                            }
+                                console.log("Edit second");
+                                
+                            
+
+                            result = myString.slice(0, -2) + getNextChar(myString) + 'A';
+
+                           
+                            myNumber = 1
+                            let nresult = result.concat(myNumber)
+                            document.querySelector("h2").innerText = `your next id is ${nresult}`
+
+
+                        }
+                    } else {
+                        myNumber += 1
+                        let nresult = myString.concat(myNumber)
+                        document.querySelector("h2").innerText = `your next id is ${nresult}`
+                    }
+                    // } else {
+                    //     function getNextChar(char) {
+                    //         return String.fromCharCode(char.charCodeAt(myString.length - 1) + 1);
+                    //     }
+
+                    //     console.log(getNextChar(myString));
+
+
+                    //     result = myString.slice(0, -1) + getNextChar(myString);
+                    //     console.log("New Word", result);
+                    //     myNumber = 1
+                    //     let nresult = result.concat(myNumber)
+
+
+                    //     document.querySelector("h2").innerText = `your next id is ${nresult}`
+
+                    // }
+
+
+
+                } else {
+                    if (myString.length < 2 && myNumber == 999) {
+                        if (myString == "Z") {
+
+                            myString = replaceWord
+                            let nextStep = "A"
+                            let newString = myString.concat(nextStep)
+                            myNumber = 1
+                            let result = newString.concat(myNumber)
+                            document.querySelector("h2").innerText = `your next id is ${result}`
+
+                        } else {
+                            function getNextChar(char) {
+                                return String.fromCharCode(char.charCodeAt(0) + 1);
+                            }
+
+                            console.log("Hello2");
+                            let nextString = getNextChar(myString)
+                            console.log(nextString);
+                            myString = nextString
+                            myNumber = 1
+                            let nresult = myString.concat(myNumber)
+                            console.log(nresult);
+
+                            document.querySelector("h2").innerText = `your next id is ${nresult}`
+
+
+                        }
+                    }
+                    else {
+                        myNumber += 1
+                        let nresult = myString.concat(myNumber)
+                        document.querySelector("h2").innerText = `your next id is ${nresult}`
+                    }
+
+
+
+
+
+                }
+            }
+        })
+    </script>
+
+    </html>

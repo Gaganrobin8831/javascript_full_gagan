@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            height: 100vh;
+            width: 100%;
+            background-color: #212121;
+            position: relative;
+            color: white;
+        }
+
+        .inputbox {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            height: 60vh;
+            width: 60%;
+            border: 3px solid gray;
+            border-radius: 40px;
+            box-shadow: 10px 0px 10px 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        input {
+            height: 3vh;
+            width: 50%;
+            border-radius: 30px;
+            box-shadow: 5px 0px 8px 0px gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="inputbox">
+            <h1>Enter the number</h1>
+            <input type="text" class="inp inp1" oninput="myFunction(this)">
+            <input type="text" class="inp inp2" oninput="myFunction(this)">
+            <input type="text" class="inp inp3" oninput="myFunction(this)">
+            <input type="text" class="inp inp4" oninput="myFunction(this)">
+        </div>
+    </div>
+
+    <script>
+        function myFunction(e) {
+
+            const inputs = document.querySelectorAll(".inputbox input");
+            let total = 0;
+
+            inputs.forEach(input => {
+                const value = Number(input.value) || 0;
+                total += value;
+
+
+                if (value > 100) {
+                    alert("Please enter values under 100");
+                    input.value = '';
+                }
+            });
+
+
+            if (total === 100) {
+                inputs.forEach(input => {
+                   if (input.value == '') {
+                    console.log(input);
+                    input.disabled = true;
+                   }
+                   
+                   
+
+
+                });
+            } else {
+
+                inputs.forEach(input => {
+                    input.disabled = false;
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

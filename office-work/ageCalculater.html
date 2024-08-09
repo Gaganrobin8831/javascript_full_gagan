@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container {
+            height: 100vh;
+            width: 100%;
+            background-color: #212121;
+            position: relative;
+            color: white;
+        }
+
+        .inputbox {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            height: 60vh;
+            width: 60%;
+            border: 3px solid gray;
+            border-radius: 40px;
+            box-shadow: 10px 0px 10px 0px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        input {
+            height: 3vh;
+            width: 50%;
+            border-radius: 30px;
+            box-shadow: 5px 0px 8px 0px gray;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="inputbox">
+            <h1>Enter the Age</h1>
+            <input type="date" id="birthday" name="birthday">
+            <button class="btn">Enter</button>
+            <h2></h2>
+
+        </div>
+    </div>
+
+</body>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script>
+    let now = new Date().getTime();
+   
+     console.log(now);
+
+
+    document.querySelector(".btn").addEventListener('click', function () {
+
+        let val = document.querySelector("input").value
+        let now2 = new Date(val).getTime();
+        let myInputtime = Intl.DateTimeFormat('en-IN').format(now2)
+        
+        console.log(now2);
+        
+
+      
+        let total = now - now2;
+
+        const minute = 1000 * 60;
+        const hour = minute * 60;
+        const day = hour * 24;
+        const year = day * 365;
+        const month = (365 / 12) * 24 * 60 * 60 * 1000
+
+        let myYear = Math.floor(total / year);
+        let myMonth = Math.floor(total / month);
+        let mydate = Math.floor(total / day);
+        let myHour  = Math.floor(total / hour)
+
+        console.log(myYear);
+        
+        
+
+
+        let myIndputDate = myInputtime.split('/')
+   
+        if (myIndputDate[2] > 2024) {
+            swal({
+                title: "Please slect date before the current time",
+                icon: "error"
+            }).then((err) => document.querySelector('h2').innerText = `Please slect date before the current time`
+            );
+        } else {
+
+            document.querySelector('h2').innerText = `You are ${myYear} year old and  ${myMonth}month and  ${mydate} day  and the hour is  ${myHour}`
+        }
+
+    })
+
+</script>
+
+</html>
