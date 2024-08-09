@@ -4,208 +4,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Booking System</title>
+    <style>
+        .box {
+            height: 100vh;
+            width: 100%;
+            background-color: #212121;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .inputField {
+            height: 50vh;
+            width: 50%;
+            background: hwb(181 19% 30% / 0.512);
+            background: linear-gradient(0deg, rgba(64, 186, 188, 0.176) 0%, rgba(235, 200, 124, 0.216) 100%);
+            border-radius: 20px;
+            box-shadow: 10px 0px 10px 10px gray;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .inp {
+            height: 5vh;
+            width: 50%;
+        }
+
+        .inp:hover {
+            border: 2px solid black;
+        }
+
+        h1 {
+            color: white;
+            text-shadow: 2px 2px red;
+        }
+
+        .btn {
+            background-color: rgb(240, 90, 90);
+            height: 5vh;
+            width: 30%;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: white;
+        }
+
+        .bookedSlots {
+            color: white;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .bookedSlots ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .bookedSlots li {
+            margin: 5px 0;
+        }
+    </style>
 </head>
-<style>
-    .box {
-        height: 100vh;
-        width: 100%;
-        background-color: #212121;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-    }
-
-    .inputField {
-
-        height: 50vh;
-        width: 50%;
-        background: hwb(181 19% 30% / 0.512);
-        background: linear-gradient(0deg, rgba(64, 186, 188, 0.176) 0%, rgba(235, 200, 124, 0.216) 100%);
-        border-radius: 20px;
-        box-shadow: 10px 0px 10px 10px gray;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-    }
-
-    .inp {
-        height: 5vh;
-        width: 50%;
-
-    }
-
-    .inp:hover {
-        border: 2px solid black;
-    }
-
-    h1 {
-        color: white;
-        text-shadow: 2px 2px red;
-    }
-
-    .btn {
-        background-color: rgb(240, 90, 90);
-        height: 5vh;
-        width: 30%;
-        font-weight: bold;
-    }
-
-    .btn:hover {
-        background-color: white;
-    }
-</style>
 
 <body>
     <div class="box">
         <div class="inputField">
-            <h1>Enter the time</h1>
+            <h1>Enter the Time</h1>
             <label for="myinput1">Start Time</label>
-            <input type="text" class="inp inp1" id="myinput1" placeholder="9:30 am">
+            <input type="text" class="inp inp1" id="myinput1" placeholder="9:30 AM">
             <label for="myinput2">End Time</label>
-            <input type="text" class="inp inp2" id="myinput2" placeholder="9:30 am">
-            <button class="btn">submit</button>
-
-            <h3></h3>
+            <input type="text" class="inp inp2" id="myinput2" placeholder="10:30 AM">
+            <button class="btn">Submit</button>
         </div>
-
-
+        <div class="bookedSlots">
+            <h2>Booked Slots:</h2>
+            <ul id="bookedSlotsList"></ul>
+        </div>
     </div>
-</body>
-<script>
-    let myArr = []
-    let myArr2 = []
 
+    <script>
+        // Array to hold booking information as objects
+        const bookings = [];
 
-    function CheckAvailable(myArray, myArray2) {
-        let myValue = myArray.join(":")
-        let myValue2 = myArray2.join(":")
+        function parseTimeString(timeString) {
+            const [time, period] = timeString.split(" ");
+            const [hours, minutes] = time.split(":").map(Number);
 
-        // console.log(myValue);
+            return { hours, minutes, period };
+        }
 
-        if (myArr.length == 0 && myArr2.length == 0) {
+        function convertTo24HourFormat(hours, period) {
+            if (period.toUpperCase() === "PM" && hours !== 12) {
+                return hours + 12;
+            }
+            if (period.toUpperCase() === "AM" && hours === 12) {
+                return 0;
+            }
+            return hours;
+        }
 
-            myArr.push(myValue)
-            myArr2.push(myValue2)
-            alert("booked")
+        function calculateTimeDifference(startTime, endTime) {
+            const startInMinutes = startTime.hours * 60 + startTime.minutes;
+            const endInMinutes = endTime.hours * 60 + endTime.minutes;
+            return endInMinutes - startInMinutes;
+        }
 
-        } else {
+        function formatBooking(startTime, endTime, duration) {
+            return `${startTime.hours}:${startTime.minutes.toString().padStart(2, '0')} ${startTime.period} - ${endTime.hours}:${endTime.minutes.toString().padStart(2, '0')} ${endTime.period} (${duration === 30 ? 'Half Hour' : 'One Hour'})`;
+        }
 
-            let checkArray = myArr.includes(myValue)
-            let checkArray2 = myArr2.includes(myValue2)
-            if (checkArray == true && checkArray2 == true) {
-                alert("already booked Choose another")
-            } else {
+        function addBookingToUI(startTime, endTime, duration) {
+            const bookingList = document.getElementById('bookedSlotsList');
+            const bookingItem = document.createElement('li');
+            bookingItem.textContent = formatBooking(startTime, endTime, duration);
+            bookingList.appendChild(bookingItem);
+        }
 
+        function isTimeSlotAvailable(startTime, endTime) {
+            const startInMinutes = convertTo24HourFormat(startTime.hours, startTime.period) * 60 + startTime.minutes;
+            const endInMinutes = convertTo24HourFormat(endTime.hours, endTime.period) * 60 + endTime.minutes;
 
-                myArr.push(myValue)
-                myArr2.push(myValue2)
-                alert("booked")
+            for (const booking of bookings) {
+                const bookedStartInMinutes = convertTo24HourFormat(booking.startTime.hours, booking.startTime.period) * 60 + booking.startTime.minutes;
+                const bookedEndInMinutes = convertTo24HourFormat(booking.endTime.hours, booking.endTime.period) * 60 + booking.endTime.minutes;
 
+                if (
+                    (startInMinutes < bookedEndInMinutes && endInMinutes > bookedStartInMinutes) || 
+                    (endInMinutes > bookedStartInMinutes && endInMinutes <= bookedEndInMinutes) || 
+                    (startInMinutes >= bookedStartInMinutes && endInMinutes <= bookedEndInMinutes)
+                ) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        document.querySelector('.btn').addEventListener('click', function () {
+            const startTimeInput = document.querySelector('.inp1').value.trim();
+            const endTimeInput = document.querySelector('.inp2').value.trim();
+
+            if (!startTimeInput || !endTimeInput) {
+                alert('Please enter both start and end times.');
+                return;
             }
 
+            const startTime = parseTimeString(startTimeInput);
+            const endTime = parseTimeString(endTimeInput);
 
-        }
-        console.log(myArr);
-        console.log(myArr2);
-    }
+            const startHour24 = convertTo24HourFormat(startTime.hours, startTime.period);
+            const endHour24 = convertTo24HourFormat(endTime.hours, endTime.period);
 
+            if (startHour24 < 9 || endHour24 > 17) {
+                alert('Please enter a time between 9:00 AM and 5:00 PM.');
+                return;
+            }
 
+            const timeDifference = calculateTimeDifference(startTime, endTime);
 
-    document.querySelector('.btn').addEventListener('click', function () {
-        let val1 = document.querySelector('.inp1').value
-        let val2 = document.querySelector('.inp2').value
-        //    console.log(val);
-        //    console.log(typeof val);
-        let n = val1.includes(":");
-        let n2 = val2.includes(":");
+            if (timeDifference !== 30 && timeDifference !== 60) {
+                alert('Please enter a booking time with a difference of either 30 minutes or 1 hour.');
+                return;
+            }
 
-        if (n == false && n2 == false) {
-            console.log("Enter valid time");
-        } else {
-            let newArr = val1.split(":").join(" ").split(" ");
-            console.log(newArr);
-            let newArr2 = val2.split(":").join(" ").split(" ");
-            console.log(newArr2);
+            if (!isTimeSlotAvailable(startTime, endTime)) {
+                alert('This time slot is already booked. Please choose another.');
+                return;
+            }
 
-            let total = newArr[1] - newArr2[1]
-            console.log(total);
+            bookings.push({ startTime, endTime, duration: timeDifference });
 
-            let total2 = Math.abs(newArr[0] - newArr2[0])
-            console.log(total2);
+            alert(`Booked for ${timeDifference === 30 ? 'half an hour' : 'one hour'}.`);
+            addBookingToUI(startTime, endTime, timeDifference);
 
-            // if (total == 30 || total == "0") {
-            //     if (total2 == 1) {
-
-            if (newArr[1] != 30 || newArr2[1] != 30)  {
-                alert("Please Enter time betwwen 30 minuts or 1 hour differnt")
-           
-            }else {
-                
-
-
-                if (newArr[2] == "AM" && newArr2[2] == "AM") {
-
-                    if (newArr[0] >= 9 && newArr[0] < 12 && newArr2[0] >= 9 && newArr2[0] < 12) {
-                        console.log(newArr[1]);
-                        if (newArr[1] == "30" || newArr[1] == "00" && newArr2[1] == "30" || newArr2[1] == "00") {
-
-                            CheckAvailable(newArr, newArr2)
-                        }
-
-                    } else {
-                        alert("EnterTime between 9:00 AM to 5:00 Pm")
-                    }
-
-
-                } else if (newArr[2] == "PM" && newArr2[2] == "PM") {
-                    // console.log("you are in pm");
-                } else {
-                    if (newArr[0] == 12 && newArr2[0] == 12) {
-                        if (newArr[1] == "30" && newArr[1] == "00" || newArr2[1] == "00" && newArr2[1] == "30") {
-
-                            CheckAvailable(newArr, newArr2)
-                        }
-                    } else {
-                        if (newArr[0] >= 1 && newArr[0] < 5) {
-                            console.log("hello1");
-
-                            if (newArr[1] == "30" || newArr[1] == "00" && newArr2[1] == "30" || newArr2[1] == "00") {
-
-                                CheckAvailable(newArr, newArr2)
-                            }
-
-                        } else {
-                            alert("EnterTime between 9:00 AM to 5:00 Pm or choose time between 30 Minutes or 1 hour")
-                        }
-
-                    }
-
-                }
-
-           
-            
-              }
-        }
-        
-
-        //  else {
-        //             alert("Please Enter time betwwen 30 minuts or 1 hour differnt")
-        //         }
-        //     }
-
-
-    })
-
-
-</script>
+            console.log('Bookings:', bookings);
+        });
+    </script>
+</body>
 
 </html>
-
-
-
-
-// let val1 = "9:30 AM";
-// let val2 = "10:00 AM";
