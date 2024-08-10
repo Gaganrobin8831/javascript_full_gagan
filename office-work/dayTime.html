@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container {
+        height: 100vh;
+        width: 100%;
+        background-color: rgb(44, 36, 14);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+
+    .row {
+        height: 50vh;
+        width: 50%;
+        background: linear-gradient(0deg, rgba(64, 186, 188, 0.176) 0%, rgba(235, 200, 124, 0.216) 100%);
+        border-radius: 20px;
+        box-shadow: 10px 0px 10px 10px gray;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+
+    }
+
+    label {
+        margin-bottom: -1vw;
+        margin-top: -1vw;
+        font-size: 1vw;
+        color: white;
+        font-weight: bold;
+    }
+
+    .btn {
+        background-color: rgb(240, 90, 90);
+        height: 5vh;
+        width: 30%;
+        font-weight: bold;
+    }
+
+    .btn:hover {
+        background-color: white;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Eneter the Date And Time</h1>
+            <label for="inpu1">Start</label>
+            <input type="datetime-local" id="inpu1" />
+            <label for="inpu2">End</label>
+            <input type="datetime-local" id="inpu2" />
+            <button class="btn">Enter</button>
+            <h3></h3>
+        </div>
+    </div>
+
+
+</body>
+<script>
+
+
+    function input1(value1) {
+        let firstInput = new Date(value1);
+        return {
+            "date": firstInput.getDate(),
+            "month": firstInput.getMonth(),
+            "year": firstInput.getFullYear(),
+            "hour": firstInput.getHours(),
+            "minutes": firstInput.getMinutes()
+        }
+    }
+
+
+
+    function checkDate(inp1, inp2) {
+
+        let getData1 = input1(inp1)
+        let getData2 = input1(inp2)
+
+        let date1 = getData1.date
+        let date2 = getData2.date
+
+        let mon1 = getData1.month
+        let mon2 = getData2.month
+
+        let total = parseInt(date2) - parseInt(date1)
+        let total2 = parseInt(mon2) - parseInt(mon1)
+        console.log(total2);
+
+
+
+        if (total < 0 && total2 <= 0) {
+            return false
+        } else {
+            return true
+        }
+
+    }
+
+    function show(showDate,shoHour,showMinutes,showInTag) {
+        
+        if (showDate > 9) {
+                if (shoHour > 9) {
+                    if (showMinutes > 9) {
+                        showInTag.innerText = `Date is ${showDate} and ${shoHour} hour and ${showMinutes}`
+
+                    } else {
+                     
+                       showInTag.innerText = `Date is 0${showDate} and ${shoHour} hour and 0${showMinutes}`
+
+                        
+                    }
+
+                }
+                else {
+                    if (showMinutes > 9) {
+                        showInTag.innerText = `Date is 0${showDate} and 0${shoHour} hour and ${showMinutes}`
+
+                    } else {
+                        showInTag.innerText = `Date is ${showDate} and 0${shoHour} hour and 0${showMinutes}`
+
+                    }
+                }
+
+            } else {
+                if (shoHour > 9) {
+
+                    if (showMinutes > 9) {
+                        showInTag.innerText = `Date is 0${showDate} and ${shoHour} hour and ${showMinutes}`
+
+                    } else {
+                        showInTag.innerText = `Date is 0${showDate} and ${shoHour} hour and 0${showMinutes}`
+
+                    }
+
+                } else {
+                    if (showMinutes > 9) {
+                        showInTag.innerText = `Date is 0${showDate} and 0${shoHour} hour and ${showMinutes}`
+
+                    } else {
+                        showInTag.innerText = `Date is 0${showDate} and 0${shoHour} hour and 0${showMinutes}`
+
+                    }
+
+                }
+
+            }
+
+    }
+
+    document.querySelector(".btn").addEventListener('click', function () {
+        let val1 = document.querySelector('#inpu1').value
+        let val2 = document.querySelector('#inpu2').value
+
+        let checkPart = checkDate(val1, val2)
+        console.log(checkPart);
+
+
+        if (checkPart == false) {
+            alert("plesase select start date less than to end date")
+        }
+        else {
+
+            let getData1 = input1(val1)
+            let getData2 = input1(val2)
+
+            let showDate = Math.abs(getData1.date - getData2.date)
+            let shoHour = Math.abs(getData2.hour - getData1.hour)
+            let showMinutes = Math.abs(getData2.minutes - getData1.minutes)
+
+            let showInTag = document.querySelector("h3");
+            console.log(shoHour);
+            show(showDate,shoHour,showMinutes,showInTag)
+
+            let showMonth  = getData2.month - getData1.month
+            console.log("hagdsfhg",showMonth);
+
+            let totalDate = showMonth * 30.4166667 - getData2.date  
+            console.log("zhvjdkasld",totalDate);
+            
+            
+
+        }
+
+
+    })
+</script>
+
+</html>
