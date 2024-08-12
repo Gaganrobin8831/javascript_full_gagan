@@ -92,68 +92,76 @@
         let mon1 = getData1.month
         let mon2 = getData2.month
 
+        let year1 = getData1.year
+        let year2 = getData2.year
+
         let total = parseInt(date2) - parseInt(date1)
         let total2 = parseInt(mon2) - parseInt(mon1)
+        let totalyear = parseInt(year2) - parseInt(year1)
         console.log(total2);
 
-
-
-        if (total < 0 && total2 <= 0) {
-            return false
-        } else {
+        if (totalyear > 0) {
             return true
+        } else {
+            if (total < 0 && total2 <= 0) {
+                return false
+            } else {
+                return true
+            }
         }
+
+
 
     }
 
-    function show(showDate,shoHour,showMinutes,showInTag) {
-        
+    function show(showDate, shoHour, showMinutes, showInTag) {
+
         if (showDate > 9) {
-                if (shoHour > 9) {
-                    if (showMinutes > 9) {
-                        showInTag.innerText = `Date is ${showDate} and ${shoHour} hour and ${showMinutes}`
-
-                    } else {
-                     
-                       showInTag.innerText = `Date is 0${showDate} and ${shoHour} hour and 0${showMinutes}`
-
-                        
-                    }
-
-                }
-                else {
-                    if (showMinutes > 9) {
-                        showInTag.innerText = `Date is 0${showDate} and 0${shoHour} hour and ${showMinutes}`
-
-                    } else {
-                        showInTag.innerText = `Date is ${showDate} and 0${shoHour} hour and 0${showMinutes}`
-
-                    }
-                }
-
-            } else {
-                if (shoHour > 9) {
-
-                    if (showMinutes > 9) {
-                        showInTag.innerText = `Date is 0${showDate} and ${shoHour} hour and ${showMinutes}`
-
-                    } else {
-                        showInTag.innerText = `Date is 0${showDate} and ${shoHour} hour and 0${showMinutes}`
-
-                    }
+            if (shoHour > 9) {
+                if (showMinutes > 9) {
+                    showInTag.innerText = `Date is ${showDate} and ${shoHour} hour and ${showMinutes}`
 
                 } else {
-                    if (showMinutes > 9) {
-                        showInTag.innerText = `Date is 0${showDate} and 0${shoHour} hour and ${showMinutes}`
 
-                    } else {
-                        showInTag.innerText = `Date is 0${showDate} and 0${shoHour} hour and 0${showMinutes}`
+                    showInTag.innerText = `Date is 0${showDate} and ${shoHour} hour and 0${showMinutes}`
 
-                    }
 
                 }
 
             }
+            else {
+                if (showMinutes > 9) {
+                    showInTag.innerText = `Date is 0${showDate} and 0${shoHour} hour and ${showMinutes}`
+
+                } else {
+                    showInTag.innerText = `Date is ${showDate} and 0${shoHour} hour and 0${showMinutes}`
+
+                }
+            }
+
+        } else {
+            if (shoHour > 9) {
+
+                if (showMinutes > 9) {
+                    showInTag.innerText = `Date is 0${showDate} and ${shoHour} hour and ${showMinutes}`
+
+                } else {
+                    showInTag.innerText = `Date is 0${showDate} and ${shoHour} hour and 0${showMinutes}`
+
+                }
+
+            } else {
+                if (showMinutes > 9) {
+                    showInTag.innerText = `Date is 0${showDate} and 0${shoHour} hour and ${showMinutes}`
+
+                } else {
+                    showInTag.innerText = `Date is 0${showDate} and 0${shoHour} hour and 0${showMinutes}`
+
+                }
+
+            }
+
+        }
 
     }
 
@@ -179,22 +187,55 @@
 
             let showInTag = document.querySelector("h3");
             console.log(shoHour);
-            
 
-            let showMonth  = getData2.month - getData1.month
-            console.log("hagdsfhg",showMonth);
-            console.log("---",getData1.month);
-            
-            let totalDate = showMonth * 30.4166667 - getData1.date + getData2.date
-            if (showMonth > 0) {
-                showDate = Math.round(totalDate)
-                show(showDate,shoHour,showMinutes,showInTag)
-            }else{
-                let showDate = Math.abs(getData1.date - getData2.date)
-                show(showDate,shoHour,showMinutes,showInTag)
+
+
+
+            let showMonth
+            if (showMonth > 1) {
+                showMonth = getData2.month - getData1.month + 1
+            } else {
+                showMonth = getData2.month - getData1.month
             }
-            
-            
+            let getYears = getData2.year - getData1.year
+            // console.log("hagdsfhg", showMonth);
+            // console.log("--2-", getData2.month);
+            // console.log("--1-", getData1.month);
+            console.log("first days ", showMonth * 30.4166667);
+
+            let totalDate
+            if (getData1.date == 30) {
+                getData1.date += 1
+                totalDate = Math.abs(Math.floor((showMonth * 30.4166667) - getData1.date)) + getData2.date
+                console.log("my days = ", totalDate);
+            } else {
+                totalDate = Math.abs(Math.floor((showMonth * 30.4166667) - getData1.date)) + getData2.date
+                console.log("my days = ", totalDate);
+
+            }
+
+            console.log((getData2.month + 1) * 30.3166667);
+
+
+            let showYear = (getYears * 365) - ((getData1.month + 1) * 30.3166667) + (((getData2.month + 1) * 30.3166667) - getData2.date)
+            console.log("My year i get", showYear);
+
+
+
+            if (getYears >= 1) {
+                showDate = Math.floor(showYear)
+                show(showDate, shoHour, showMinutes, showInTag)
+            } else {
+                if (showMonth > 0) {
+                    showDate = Math.floor(totalDate)
+                    show(showDate, shoHour, showMinutes, showInTag)
+                } else {
+                    let showDate = Math.abs(getData1.date - getData2.date)
+                    show(showDate, shoHour, showMinutes, showInTag)
+                }
+
+            }
+
 
         }
 
