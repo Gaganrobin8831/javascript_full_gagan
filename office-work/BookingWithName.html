@@ -85,12 +85,12 @@
             <h1>Enter the time for swap</h1>
             <label for="swapName">Enter the name</label>
             <input type="text" id="swapName" class="inp name2">
-            <label for="swapmyinput3">Start Time</label>
+            <!-- <label for="swapmyinput3">Start Time</label>
             <input type="text" class="inp inp3" id="swapmyinput3" placeholder="9:30 AM">
             <label for="swapmyinput4">End Time</label>
-            <input type="text" class="inp inp4" id="swapmyinput4" placeholder="10:30 AM">
+            <input type="text" class="inp inp4" id="swapmyinput4" placeholder="10:30 AM"> -->
             <button class="btn2">Swap</button>
-            <h3 id="message"></h3>
+            <h3 id="message2"></h3>
         </div>
     </div>
 </body>
@@ -169,10 +169,35 @@
     document.querySelector(".btn2").addEventListener('click',() => {
         let swapInput1 = document.querySelector('#swapName').value
         console.log(swapInput1);
-        let swapInput2 = document.querySelector('#swapmyinput3').value
-        console.log(swapInput2);
-        let swapInput3 = document.querySelector('#swapmyinput4').value
-        console.log(swapInput3);
+        // let swapInput2 = document.querySelector('#swapmyinput3').value
+        // console.log(swapInput2);
+        // let swapInput3 = document.querySelector('#swapmyinput4').value
+        // console.log(swapInput3);
+
+        // const timeValidation = isTimeValid(swapInput2, swapInput3);
+        // console.log("first", timeValidation);
+
+        // if (!timeValidation.valid) {
+
+        //     document.getElementById('message2').innerText = timeValidation.message;
+        //     return;
+
+        // }
+        console.log(bookings);
+        let tempStartTime 
+        let tempEndTime
+
+        for (const book of bookings) {
+            if (swapInput1 == book.namePerson) {
+              tempStartTime = startTime
+              tempEndTime = endTime
+                
+                console.log(`${book.namePerson}--${book.startTime}--${book.endTime}`);
+                
+                
+            }
+        }
+        
         
     })
 </script>
