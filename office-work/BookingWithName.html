@@ -166,40 +166,78 @@
         console.log("Current bookings:", bookings);
     });
 
-    document.querySelector(".btn2").addEventListener('click',() => {
-        let swapInput1 = document.querySelector('#swapName').value
-        console.log(swapInput1);
-        // let swapInput2 = document.querySelector('#swapmyinput3').value
-        // console.log(swapInput2);
-        // let swapInput3 = document.querySelector('#swapmyinput4').value
-        // console.log(swapInput3);
+    document.querySelector(".btn2").addEventListener('click', () => {
+    const swapName = document.querySelector('#swapName').value;
 
-        // const timeValidation = isTimeValid(swapInput2, swapInput3);
-        // console.log("first", timeValidation);
+    let bookingIndex = -1;
+    let conflictingIndex = -1;
 
-        // if (!timeValidation.valid) {
+    // Step 1: Check if the name exists in the current bookings
+    for (let i = 0; i < bookings.length; i++) {
+        if (bookings[i].namePerson === swapName) {
+            bookingIndex = i;
+            break;
+        }
+    }
 
-        //     document.getElementById('message2').innerText = timeValidation.message;
-        //     return;
+    if (bookingIndex === -1) {
+        document.getElementById('message2').innerText = "Booking not found for the provided name.";
+        return;
+    }
 
-        // }
-        console.log(bookings);
-        let tempStartTime 
-        let tempEndTime
+    // Step 2: Prompt the user to enter new start and end times
+    const swapStartTime = prompt("Enter the new start time (e.g., 9:30 AM):");
+    const swapEndTime = prompt("Enter the new end time (e.g., 10:30 AM):");
 
-        for (const book of bookings) {
-            if (swapInput1 == book.namePerson) {
-              tempStartTime = startTime
-              tempEndTime = endTime
-                
-                console.log(`${book.namePerson}--${book.startTime}--${book.endTime}`);
-                
-                
+    const timeValidation = isTimeValid(swapStartTime, swapEndTime);
+    if (!timeValidation.valid) {
+        document.getElementById('message2').innerText = timeValidation.message;
+        return;
+    }
+
+    // Step 3: Check if the new time slot is available
+    for (let i = 0; i < bookings.length; i++) {
+        if (i !== bookingIndex) {
+            const booking = bookings[i];
+            const bookingStart = convertToMinutes(booking.startTime);
+            const bookingEnd = convertToMinutes(booking.endTime);
+            const newStart = convertToMinutes(swapStartTime);
+            const newEnd = convertToMinutes(swapEndTime);
+
+            // Check if the new time overlaps with this booking
+            if (
+                (newStart >= bookingStart && newStart < bookingEnd) ||
+                (newEnd > bookingStart && newEnd <= bookingEnd) ||
+                (newStart <= bookingStart && newEnd >= bookingEnd)
+            ) {
+                conflictingIndex = i;
+                break;
             }
         }
-        
-        
-    })
+    }
+
+    if (conflictingIndex === -1) {
+        document.getElementById('message2').innerText = "The new time slot is available but doesn't overlap with any booking. No swap needed.";
+        return;
+    }
+
+    // Step 4: Perform the swap between the existing booking and the conflicting one
+    const tempStartTime = bookings[bookingIndex].startTime;
+    const tempEndTime = bookings[bookingIndex].endTime;
+
+    bookings[bookingIndex].startTime = bookings[conflictingIndex].startTime;
+    bookings[bookingIndex].endTime = bookings[conflictingIndex].endTime;
+    bookings[bookingIndex].duration = bookings[conflictingIndex].duration;
+
+    bookings[conflictingIndex].startTime = tempStartTime;
+    bookings[conflictingIndex].endTime = tempEndTime;
+    bookings[conflictingIndex].duration = timeValidation.duration;
+
+    document.getElementById('message2').innerText = `Swapped successfully with the existing booking from ${tempStartTime} - ${tempEndTime}.`;
+
+    console.log("Current bookings after swap:", bookings);
+});
+
 </script>
 
 </html>
