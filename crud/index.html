@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container{
+        height: 100vh;
+    width: 100%;
+    background-color: #212121;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.row
+{
+    height: 70vh;
+    width:60%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+button{
+   background-color: darkred;
+   color: white;
+   padding: 4px;
+   border-radius: 10px;
+   margin: 4px;
+}
+.addData{
+    width: 100%;
+  
+     display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-evenly ;
+}
+.updateData{
+    width: 100%;
+  
+     display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+table {
+    margin-top: 2vw;
+   
+    width: 100%;
+    
+}
+table tbody tr {
+    margin-top: 2vw;
+    
+    width: 100%;
+    text-align: center;
+}
+th{
+    outline: 2px solid black;
+}
+
+td{
+    outline: 2px solid black;
+}
+.btn1{
+    width: 10%;
+}
+.btn2{
+    width: 10%;
+}
+.add_div{
+    margin-left: -47vw;
+}
+.addData,.updateData{
+    display: none;
+}
+.del{
+    background-color: red;
+}
+.Edit{
+    background-color: blue;
+}
+</style>
+<body >
+    <div class="container">
+        <div class="row">
+
+
+            <form  class="addData">
+                <input type="text" class="name" placeholder = "Name">
+                <input type="text" class="email" placeholder="Email">
+                <button type="button" class="btn1" ondblclick="add()">Add</button>
+            </form>
+            <form class="updateData">
+                <input type="text" class="id" hidden>
+                <input type="text" class="name1" placeholder = "Name">
+                <input type="text" class="email2" placeholder="Email">
+                <button type="button" class="btn2" onclick="update()">Update</button>
+            </form>
+            <div class="add_div">
+                <button onclick="create()">Add +</button>
+            </div>
+            <table>
+                <thead>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                </thead>
+                <tbody class="data_table"></tbody>
+            </table>
+
+
+        </div>
+    </div>
+    
+</body>
+<script src="./main.js"></script>
+</html>
