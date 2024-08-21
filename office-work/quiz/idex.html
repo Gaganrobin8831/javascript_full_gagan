@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .container {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    .row2 {
+      height: 90vh;
+      width: 60%;
+     
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+   
+    .box {
+      height: 50%;
+      width: 100%;
+      margin-top: 2vw;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    .box div {
+      width: 70%;
+      height: 7vh;
+      outline: 1px solid black;
+      border-radius: 20px;
+      margin-top: 0.5vw;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    .box div:hover {
+      background-color: rgb(191, 215, 235);
+      outline: 0;
+    }
+    .buttonbox {
+      width: 100%;
+      display: flex;
+      align-items: end;
+      flex-direction: row;
+      justify-content: end;
+      margin-top: 1vw;
+      height: 5vh;
+      outline: 0;
+      border: 0;
+    }
+    .btn1 {
+      background-color: rgb(5, 134, 240);
+      border: 0;
+      margin-right: 5vw;
+      margin-bottom: 2vw;
+      height: 5vh;
+      width: 15%;
+    }
+    .btn1:hover {
+      outline: 2px solid rgb(5, 134, 240);
+      background-color: white;
+    }
+    p{
+        color: skyblue;
+        font-size: 3vw;
+    }
+    
+  </style>
+  <body>
+    <div class="container">
+
+   
+      <h1>Please select One answer</h1>
+
+      <p>sgh</p>
+
+      <div class="box">
+        <div>
+          <label for="r1" class="l1">l</label>
+          <input type="radio" name="btn1" id="r1" value="1" checked />
+        </div>
+
+        <div>
+          <label for="r2" class="l2">2</label>
+          <input type="radio" name="btn1" id="r2" value="2"/>
+        </div>
+
+        <div>
+          <label for="r3" class="l3">3</label>
+          <input type="radio" name="btn1" id="r3" value="3"/>
+        </div>
+
+        <div>
+          <label for="r4" class="l4">4</label>
+          <input type="radio" name="btn1" id="r4" value="4"/>
+        </div>
+      </div>
+      <div class="buttonbox"><button class="btn1">Next</button></div>
+    </div>
+ 
+  </body>
+  <!-- <script src="./script.js"></script> -->
+  <script src="./script.js"></script>
+</html>

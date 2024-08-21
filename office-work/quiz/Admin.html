@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    .container {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      flex-direction: row;
+    }
+    .row2 {
+      height: 90vh;
+      width: 60%;
+     
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    .row1{
+      height: 90vh;
+      width: 40%;
+      border-right: 2px solid black;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    
+   
+    .row1 input{
+      width: 60%;
+      border-radius: 10px ;
+      outline: 1px solid black;
+      border: 0;
+      height: 3vh;
+     
+    }
+    .row1 label{
+      margin-left: -15vw;
+      margin-top: 1vw;
+      margin-bottom: .2vw;
+      font-size: larger;
+      font-weight: bold;
+      color: rgb(5, 134, 240);
+      text-shadow: 2px 1px black;
+    }
+    
+    .AddButton{
+      margin-top: 2vw;
+      background-color:rgb(5, 134, 240) ;
+      border: 0;
+      height: 5vh;
+      width: 15%;
+    }
+    .AddButton:hover{
+      outline: 2px solid rgb(5, 134, 240);
+      background-color: white;
+    }
+    .databox{
+        height: 70vh;
+        overflow-y: scroll;
+        width: 100%;
+       
+    }
+    h1{
+      color:rgb(5, 134, 240);
+      text-shadow: 2px 1px black; 
+    }
+    h3{
+      margin-left: 2vw;
+      color: rgb(5, 134, 240);
+    }
+    li{
+        margin-left: 7vw;
+        margin-bottom: .3vw;
+       list-style: none;
+    }
+    .Edit{
+     
+      background-color:rgb(5, 134, 240) ;
+      border: 0;
+      height: 4vh;
+      width: 10%;
+      margin-left: 2vw;
+    }
+    .Edit:hover{
+      outline: 2px solid rgb(5, 134, 240);
+      background-color: white;
+    }
+
+    .delete{
+     
+      background-color:rgb(5, 134, 240) ;
+      border: 0;
+      height: 4vh;
+      width: 10%;
+      margin-left: 1vw;
+    }
+    .delete:hover{
+      outline: 2px solid rgb(5, 134, 240);
+      background-color: white;
+    }
+
+  </style>
+  <body>
+    <div class="container">
+      <div class="row1">
+        <h1>Add Quiz</h1>
+        <input type="text" class="id" style="display: none;">
+        <label for="addQuestion">Add Question</label>
+        <input type="text" id="addQuestion" class="inp">
+
+        <label for="Ans1">Answer No 1</label>
+        <input type="text" id="Ans1" class="inp">
+
+        <label for="Ans2">Answer No 2</label>
+        <input type="text" id="Ans2" class="inp">
+
+        <label for="Ans3">Answer No 3</label>
+        <input type="text" id="Ans3" class="inp">
+
+        <label for="Ans4">Answer No 4</label>
+        <input type="text" id="Ans4" class="inp">
+
+        <label for="CorrectAnswer">Correct Answer</label>
+        <input type="text" id="CorrectAnswer" class="inp">
+
+        <button class="AddButton">Add</button>
+        <button class="AddButton" id="Update" style="display: none;" onclick="update()">update</button>
+      </div>
+    <div class="row2">
+   <h1>The Quiz is You Was Add</h1>
+   <div class="databox">
+
+   </div>
+    </div>
+  </div>
+  </body>
+  <!-- <script src="./script.js"></script> -->
+  <script src="./script2.js"></script>
+</html>
