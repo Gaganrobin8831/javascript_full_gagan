@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    try {
+        console.log("start try");
+        blabla();
+    } catch (error) {
+    //    console.log(error.name);
+    //    console.log(error.message);
+    //    console.log(error.stack);
+       
+        if (error instanceof ReferenceError) {
+            console.log("reffernce Error");
+            
+        }else if (error instanceof TypeError) {
+            console.log("type error");
+            
+        }else{
+            console.log("Unknown Error");
+            
+        }
+    }
+</script>
+</body>
+</html>

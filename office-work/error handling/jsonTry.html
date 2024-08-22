@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    try {
+    //    let json =  '{"name":"Gagan","age":20}';
+       let json =  '{"age":20}';
+       let user = JSON.parse(json);
+       if (!user.name) {
+        throw new Error("Tncomplet data : no name")
+       }
+       console.log(user.name);
+       console.log(user.age);
+       
+    } catch (error) {
+        console.log(error);
+        
+    }
+</script>
+</body>
+</html>
