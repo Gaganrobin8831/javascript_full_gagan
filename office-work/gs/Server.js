@@ -1,8 +1,10 @@
-import http from "http";
+const http = require('http')
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
   res.setHeader('Content-Type', 'text/plain');
+  res.write("jhdjkssbcj")
+ 
   res.end('Hello World', 'utf8');
 });
 

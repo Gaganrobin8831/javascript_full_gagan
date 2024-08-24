@@ -3,12 +3,18 @@
 
 console.log("Long-running task completed");
 
-setTimeout(() => {
-  console.log("Timer triggered!");
-}, 1000); 
 
-setInterval(() => {
-  console.log("Interval triggered!");
-}, 1000); 
+function runlopp() {
+  for(let i=0 ; i<1200;i++){
+    console.log(i);
+    
+  }
+  looping();
+  
+}
+function looping(){
+  console.log("loop is printed");
+  
+}
 
-console.log("Script finished");
+runlopp();

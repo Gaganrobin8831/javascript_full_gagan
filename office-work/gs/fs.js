@@ -1,5 +1,5 @@
 
-import fs from 'fs'
+const fs = require('fs')
 
 const filePath = 'text.txt';
 
@@ -11,6 +11,6 @@ fs.readFile(filePath, { encoding: 'utf8' }, (err, data) => {
   console.log(data);
 });
 
-console.log("Hello how are you");
+console.log("***************************Hello how are you****************************");
 
 
