@@ -29,6 +29,7 @@ function writeJSONToFile(filePath, data, res) {
         console.log('File updated successfully.');
         res.statusCode = 200;
         res.end('File updated successfully');
+        return
     });
 }
 
@@ -79,7 +80,6 @@ const server = http.createServer((req, res) => {
         });
     } else if (req.method === 'POST' && req.url === '/create') {
         let body = '';
-
         req.on('data', chunk => {
             body += chunk.toString();
         });
@@ -143,7 +143,7 @@ const server = http.createServer((req, res) => {
 
     } else if (req.method === 'DELETE' && req.url.startsWith('/delete')) {
         const urlParts = req.url.split('/');
-        const id = parseInt(urlParts[urlParts.length - 1], 10);
+        const id = parseInt(urlParts[urlParts.length - 1]);
 
         if (isNaN(id)) {
             res.statusCode = 400;
