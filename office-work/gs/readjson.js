@@ -34,9 +34,7 @@ async function updateData() {
     const data = await readJSONFile(path);
     console.log('Original Data:', data);
 
-    data.age += 1;
-    data.occupation = 'Engineer'; 
-
+   
     await writeJSONFile(path, data);
     console.log('Data has been updated and written back to the file.');
   } catch (error) {

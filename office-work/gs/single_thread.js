@@ -12,6 +12,7 @@ function runlopp() {
   looping();
   
 }
+
 function looping(){
   console.log("loop is printed");
   

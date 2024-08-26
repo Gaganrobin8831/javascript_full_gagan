@@ -11,7 +11,35 @@ fs.watch(directoryToWatch, (eventType, filename) => {
         fs.access(filePath, fs.constants.F_OK, (err) => {
             if (err) {
                
-                console.log(`The file ${filename} was deleted.`);
+                    console.log(`The file ${filename} was deleted.`);
+                    
+                    fs.writeFile(filePath, textToWrite, 'utf8', (err) => {
+                        if (err) {
+                          console.error('Error writing to file:', err);
+                          return;
+                        }
+                        console.log('File written successfully.');
+                    
+                       
+                        readFile();
+                      });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             } else {
                
                 console.log(`The file ${filename} was modified.`);

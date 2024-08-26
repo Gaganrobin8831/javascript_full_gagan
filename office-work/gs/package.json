@@ -5,14 +5,16 @@
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon crud/file2.js"
   },
   "author": "gagan",
   "license": "ISC",
   "description": "createing server",
   "dependencies": {
     "curreny_convertor": "^1.2.0",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.4"
   },
   "keywords": [
     "npm"

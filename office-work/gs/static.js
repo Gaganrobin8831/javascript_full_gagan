@@ -1,14 +1,14 @@
-import http from 'http';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 
 const server = http.createServer((req, res) => {
    
-    const filePath = path.join(__dirname, req.url === '/' ? 'test.js' : req.url);
+    const filePath = path.join(__dirname, req.url === '/' ? 'home.html' : req.url);
     
    
     const extname = path.extname(filePath);
