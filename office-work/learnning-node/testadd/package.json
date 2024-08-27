@@ -1,0 +1,17 @@
+{
+  "name": "testadd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "addnumber8831": "^1.0.0",
+    "nodemon": "^3.1.4"
+  }
+}

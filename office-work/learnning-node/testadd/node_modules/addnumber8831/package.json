@@ -1,0 +1,21 @@
+{
+  "name": "addnumber8831",
+  "version": "1.0.0",
+  "description": "add two number",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "npm",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gaganrobin8831/addNumber.git"
+  },
+  "author": "Gagandeep Singh",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Gaganrobin8831/addNumber/issues"
+  },
+  "homepage": "https://github.com/Gaganrobin8831/addNumber#readme"
+}
